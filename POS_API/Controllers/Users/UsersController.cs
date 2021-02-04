@@ -114,7 +114,8 @@ namespace POS_API.Controllers.Users
         //}
 
         // POST: api/Users
-        [ResponseType(typeof(User))]
+        [HttpPost]
+        [Route("PostUser")]
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
