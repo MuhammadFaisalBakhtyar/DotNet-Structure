@@ -11,11 +11,14 @@ namespace POS_API.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class User
     {
         public int ID { get; set; }
         public string Username { get; set; }
+
+        [MaxLength(200, ErrorMessage = "Name cannot be longer than 50 characters")]
         public string Password { get; set; }
         public string Email { get; set; }
     }

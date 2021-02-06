@@ -11,5 +11,8 @@ namespace POS_API.IDataRepository.Users
     {
         IEnumerable<User> GetAllUsers();
         List<User> GetUserById(int id);
+        List<User> Login(User LoginDetail);
+        List<User> GetUserByEmail(User EmailDetail);
+        bool CreateUser(User UserDetail);
     }
 }

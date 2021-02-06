@@ -78,44 +78,81 @@ namespace POS_API.Controllers.Users
             //return Ok(user);
         }
 
-        // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        //public IHttpActionResult PutUser(int id, User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    if (id != user.ID)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPost]
+        [Route("Login")]
+        public APIResponse<User> Login (User LoginDetail)
+        {
+            try
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                var users = _userRepository.Login(LoginDetail);
+                apiResponse.DataEnum = users;
+                apiResponse.IsSuccess = true;
+                return apiResponse;
+            }
+            catch (Exception ex)
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                apiResponse.IsSuccess = false;
+                apiResponse.ErrorMessage = ex.Message;
+                return apiResponse;
+            }
 
-        //    db.Entry(user).State = EntityState.Modified;
+            //User user = db.Users.Find(id);
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            //return Ok(user);
+        }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+        [HttpPost]
+        [Route("GetUserbyEmail")]
+        public APIResponse<User> GetUserByEmail(User EmailDetail)
+        {
+            try
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                var users = _userRepository.GetUserByEmail(EmailDetail);
+                apiResponse.DataEnum = users;
+                apiResponse.IsSuccess = true;
+                return apiResponse;
+            }
+            catch (Exception ex)
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                apiResponse.IsSuccess = false;
+                apiResponse.ErrorMessage = ex.Message;
+                return apiResponse;
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateUser")]
+        public APIResponse<User> CreateUser(User UserDetail)
+        {
+            try
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                var users = _userRepository.CreateUser(UserDetail);
+                //apiResponse.DataEnum = users;
+                apiResponse.IsSuccess = true;
+                return apiResponse;
+            }
+            catch (Exception ex)
+            {
+                APIResponse<User> apiResponse = new APIResponse<User>();
+                apiResponse.IsSuccess = false;
+                apiResponse.ErrorMessage = ex.Message;
+                return apiResponse;
+            }
+        }
+
 
         // POST: api/Users
-        [HttpPost]
-        [Route("PostUser")]
+        [ResponseType(typeof(User))]
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
